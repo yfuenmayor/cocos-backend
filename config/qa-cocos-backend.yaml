@@ -2,14 +2,23 @@ appName: cocos-backend
 env: qa
 port: 3000
 api:
+  orders:
+    schemas:
+      types:
+        - MARKET
+        - LIMIT
+      sides:
+        cash:
+          - CASH_IN
+          - CASH_OUT
 db:
   type: &dialect postgres
   auth:
-    host: 'raja.db.elephantsql.com'
-    port: 5432
-    user: 'zdklxogo'
-    password: '13RIIZd_jhUkM5LsuWzWdRyPlFJsmnVj'
-    dataBase: 'zdklxogo'
+    host:
+    port:
+    user:
+    password:
+    dataBase:
   config:
     dialect: *dialect
     logging: true

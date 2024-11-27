@@ -19,29 +19,31 @@ class PortfolioController extends Controller {
     }
   }
 
+  getPortfolioByUserId = async (id) => {
+    const ordersByUser = await this.OrderServices.getByUserId(id)
+    const latestMarkets = await this.MarketServices.getLastPriceMarket() || []
+
+    const closePricesByInstruments = latestMarkets.reduce((acc, market) => {
+      acc[market.instrumentId] = market.close
+      return acc
+    },{})
+
+    const availableMoney = reduce( this.Calculations.getTotalMoneyByUser, 0, ordersByUser)
+    const { assets , assetsValue }  = this.Calculations.calculateAssetsByUser(ordersByUser,closePricesByInstruments)
+
+    return  {
+      userId: id,
+      totalBalance: availableMoney + assetsValue,
+      availableMoney,
+      assets
+    }
+  }
+
   getByUserId = async (req, res, next) => {
     const userId = pipe(path(['params', 'userId']), parseInt)(req) || 0
     try {
-
       const user = await this.UserServices.getById(userId)
-      const ordersByUser = await this.OrderServices.getByUserId(user.id)
-      const latestMarkets = await this.MarketServices.getLastPriceMarket() || []
-
-      const closePricesByInstruments = latestMarkets.reduce((acc, market) => {
-        acc[market.instrumentId] = market.close
-        return acc
-      },{})
-
-      const availableMoney = reduce( this.Calculations.getTotalMoneyByUser, 0, ordersByUser)
-      const { assets , assetsValue }  = this.Calculations.calculateAssetsByUser(ordersByUser,closePricesByInstruments)
-
-      const response = {
-        userId: userId,
-        totalBalance: availableMoney + assetsValue,
-        availableMoney,
-        assets
-      }
-
+      const response = await this.getPortfolioByUserId(user.id)
       res.json(response)
     } catch (err) {
       next(err)

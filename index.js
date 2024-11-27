@@ -3,7 +3,7 @@ const config = require('config')
 const cors = require('cors')
 const routerApi = require('./src/routes')
 const middlewares = require('./src/middelwares')
-const Database = require('./libs/db')
+// const Database = require('./libs/db')
 
 
 const app = express()
