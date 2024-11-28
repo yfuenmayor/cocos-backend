@@ -7,7 +7,7 @@ class PortfolioController extends Controller {
     this.OrderServices = this.getService('OrderService')
     this.MarketServices = this.getService('MarketService')
     this.UserServices = this.getService('UserService')
-    this.Calculations = this.helpers.getHelper('Calculations')
+    this.Calculations = this.helpers.get('Calculations')
   }
 
   getAll = async (req, res, next) => {
@@ -20,6 +20,7 @@ class PortfolioController extends Controller {
   }
 
   getPortfolioByUserId = async (id) => {
+    const { ticker }  = this.config.get('api.currency.market')
     const ordersByUser = await this.OrderServices.getByUserId(id)
     const latestMarkets = await this.MarketServices.getLastPriceMarket() || []
 
@@ -33,6 +34,7 @@ class PortfolioController extends Controller {
 
     return  {
       userId: id,
+      currency: ticker,
       totalBalance: availableMoney + assetsValue,
       availableMoney,
       assets

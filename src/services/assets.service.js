@@ -1,11 +1,22 @@
 const { models } = require('../../libs/db/sequelize')
 const {Op} = require("sequelize");
+const {or, isEmpty, isNil} = require("ramda");
+const boom = require("@hapi/boom");
 
 class AssetsService {
 
   constructor() {
     this.instruments = models.Instruments
   }
+
+  async getInstrumentById(id) {
+    const instrument = await this.instruments.findByPk(id)
+
+    if(or(isEmpty(instrument), isNil(instrument)))
+      throw boom.notFound("instrument not found")
+
+    return instrument
+}
 
   async getAllMarket(searchText){
     const data = await this.instruments.findAll({

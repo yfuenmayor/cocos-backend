@@ -39,3 +39,5 @@ app.use(middlewares.boomErrors)
 app.use(middlewares.parseErrors)
 
 app.listen(port, () => console.log(`listening on ${port}`) )
+
+// TODO: agregar el proccess.on, para cerrar la base de datos cuando se termine o se caiga el servicio. SIGTERM SIGINT

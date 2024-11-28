@@ -1,7 +1,7 @@
 const boom = require('@hapi/boom');
 const { models } = require('../../libs/db/sequelize')
 const {isEmpty, isNil, or} = require("ramda");
-const { Op, Sequelize } = require('sequelize');
+const { Op } = require('sequelize');
 const MarketService = require('./market.service')
 
 class OrdersService {
@@ -15,6 +15,11 @@ class OrdersService {
   async getAll(){
     const data = await this.OrdersModel.findAll()
     return data
+  }
+
+  async create(data){
+    const result = await this.OrdersModel.create(data)
+    return result
   }
 
   async getById(id){
@@ -38,7 +43,7 @@ class OrdersService {
           model: models.Instruments,
           as: 'instrument',
           required:true,
-          attributes: ['type','name'],
+          attributes: ['id','type','name'],
         }
       ],
       where: {

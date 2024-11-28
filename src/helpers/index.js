@@ -16,7 +16,7 @@ class Helpers {
     }
   }
 
-  getHelper(helperName) {
+  get(helperName) {
     return this.helpers[helperName];
   }
 }
