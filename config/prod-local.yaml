@@ -1,5 +1,5 @@
 appName: cocos-backend
-env: qa
+env: prod
 port: 3000
 api:
   currency:
@@ -24,7 +24,7 @@ db:
     dataBase:
   config:
     dialect: *dialect
-    logging: true
+    logging: false
     pool:
       max: 3
       min: 1
