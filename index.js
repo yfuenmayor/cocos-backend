@@ -3,7 +3,7 @@ const config = require('config')
 const cors = require('cors')
 const routerApi = require('./src/routes')
 const middlewares = require('./src/middelwares')
-// const Database = require('./libs/db')
+const Database = require('./libs/db')
 
 
 const app = express()
@@ -27,6 +27,10 @@ const options = {
 app.use(cors(options));
 
  */
+
+const dbInstance = new Database()
+dbInstance.testConnection()
+
 
 app.use(cors())
 app.use(express.json({ extended: true}))

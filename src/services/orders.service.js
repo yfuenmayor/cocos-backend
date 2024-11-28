@@ -1,14 +1,12 @@
 const boom = require('@hapi/boom');
-const { models } = require('../../libs/db/sequelize')
 const {isEmpty, isNil, or} = require("ramda");
 const { Op } = require('sequelize');
-const MarketService = require('./market.service')
 
 class OrdersService {
 
-  constructor() {
+  constructor(models) {
     this.OrdersModel = models.Orders
-    this.MarketService = new MarketService()
+    this.models = models
   }
 
 
@@ -34,13 +32,13 @@ class OrdersService {
       attributes: ['id', 'status','instrumentId', 'side', 'type', 'size', 'price'],
       include: [
         {
-          model: models.Users,
+          model: this.models.Users,
           as: 'user',
           required:true,
           attributes: ['id', 'email'],
         },
         {
-          model: models.Instruments,
+          model: this.models.Instruments,
           as: 'instrument',
           required:true,
           attributes: ['id','type','name'],

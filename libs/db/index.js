@@ -26,12 +26,12 @@ class Database {
     return this.sequelize
   }
 
-  testConnection = async() => {
+  testConnection = () => {
     try {
-      await this.sequelize.authenticate()
-      console.log('Authenticated')
+      this.sequelize.authenticate()
+      console.log('connected database')
     } catch (error) {
-
+      console.error(error)
     }
   }
 }

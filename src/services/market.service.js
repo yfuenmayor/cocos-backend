@@ -1,11 +1,10 @@
 const boom = require('@hapi/boom');
-const { models } = require('../../libs/db/sequelize')
 const {isEmpty, isNil, or} = require("ramda");
 const { Op, Sequelize } = require('sequelize');
 
 class MarketService {
 
-  constructor() {
+  constructor(models) {
     this.MarketModel = models.Market
     this.ViMarketModel = models.ViMarket
   }

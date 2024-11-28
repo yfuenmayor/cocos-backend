@@ -1,10 +1,9 @@
 const boom = require('@hapi/boom');
-const { models } = require('../../libs/db/sequelize')
 const {isEmpty, isNil, or} = require("ramda");
 
 class UsersService {
 
-  constructor() {
+  constructor(models) {
     this.model = models.Users
   }
 
