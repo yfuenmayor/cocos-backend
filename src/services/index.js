@@ -17,13 +17,13 @@ class Services extends Database {
     }
   }
 
-  initServices() {
+  initServices = () => {
     for (const [key, ServiceClass] of Object.entries(this.serviceDefinitions)) {
       this.services[key] = new ServiceClass(this.models);
     }
   }
 
-  getService(serviceName) {
+  getService = serviceName => {
     return this.services[serviceName];
   }
 }

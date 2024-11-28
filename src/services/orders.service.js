@@ -10,24 +10,24 @@ class OrdersService {
   }
 
 
-  async getAll(){
+   getAll = async () => {
     const data = await this.OrdersModel.findAll()
     return data
   }
 
-  async create(data){
+  create = async data =>{
     const result = await this.OrdersModel.create(data)
     return result
   }
 
-  async getById(id){
+  getById = async id => {
     const data = await this.OrdersModel.findByPk(id)
     if(or(isEmpty(data), isNil(data)))
       throw boom.notFound("instrument not found")
     return data
   }
 
-  async getByUserId(userId){
+  getByUserId = async userId => {
     const data = await this.OrdersModel.findAll({
       attributes: ['id', 'status','instrumentId', 'side', 'type', 'size', 'price'],
       include: [

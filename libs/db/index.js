@@ -34,6 +34,15 @@ class Database {
       console.error(error)
     }
   }
+
+  closeConnection = () => {
+    try {
+      this.sequelize.close();
+      console.log('Database connection closed.');
+    } catch (error) {
+      console.error('Error closing database connection:', error);
+    }
+  };
 }
 
 module.exports = Database

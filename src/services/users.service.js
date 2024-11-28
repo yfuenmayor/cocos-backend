@@ -8,12 +8,12 @@ class UsersService {
   }
 
 
-  async getAll(){
+  getAll = async () => {
     const data = await this.model.findAll()
     return data
   }
 
-  async getById(id){
+  getById= async id =>{
     const data = await this.model.findByPk(id)
     if(or(isEmpty(data), isNil(data)))
       throw boom.notFound("user not found")

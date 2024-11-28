@@ -41,8 +41,6 @@ class OrderValidator  {
     if(cashLimit)
       throw boom.notAcceptable("the number of shares exceeds the available cash limit")
 
-
-
   }
 
   #validateSellOrder = async ({payload, portfolio}) => {

@@ -10,7 +10,7 @@ class AssetsService {
     this.MarketModel = models.Market
   }
 
-  async getInstrumentById(id) {
+  getInstrumentById = async id => {
     const instrument = await this.InstumentsModel.findByPk(id)
 
     if(or(isEmpty(instrument), isNil(instrument)))
@@ -19,7 +19,7 @@ class AssetsService {
     return instrument
 }
 
-  async getAllMarket(searchText){
+  getAllMarket = async searchText =>{
     const data = await this.InstumentsModel.findAll({
       attributes: ['id', 'ticker', 'name' ],
       include: [{
@@ -39,7 +39,7 @@ class AssetsService {
     return data
   }
 
-  async getLastMarket(searchText){
+  getLastMarket = async searchText => {
     const data = await this.InstumentsModel.findAll({
       attributes: ['id', 'ticker', 'name' ],
       include: [{

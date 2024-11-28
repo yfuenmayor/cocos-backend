@@ -13,7 +13,7 @@ class Validators {
     }
   }
 
-  get(validatorName) {
+  get = validatorName => {
     return this.validators[validatorName]
   }
 }

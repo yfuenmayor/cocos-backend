@@ -10,24 +10,24 @@ class MarketService {
   }
 
 
-  async getAll(){
+  getAll = async () =>{
     const data = await this.MarketModel.findAll()
     return data
   }
 
-  async getById(id){
+  getById = async id =>{
     const data = await this.MarketModel.findByPk(id)
     if(or(isEmpty(data), isNil(data)))
       throw boom.notFound("instrument not found")
     return data
   }
 
-  async getLastPriceMarket(){
+  getLastPriceMarket = async () =>{
     const data = await this.ViMarketModel.findAll()
     return data
   }
 
-  async getLastPriceMarketLocal(){
+  getLastPriceMarketLocal = async () => {
     const data = await this.MarketModel.findAll({
       attributes: ['id', 'instrumentId', 'high', 'low', 'open', 'close', 'previousClose', 'date'],
       where: {
