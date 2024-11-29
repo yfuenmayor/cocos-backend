@@ -2,13 +2,12 @@ const OrderService = require('./orders.service')
 const MarketService = require('./market.service')
 const UserService = require('./users.service')
 const AssetsService = require('./assets.service')
-const Database = require('../../libs/db')
+const Models = require('../../libs/db/models')
 
-class Services extends Database {
+class Services extends Models {
   constructor() {
     super()
     this.services = {};
-    this.models = this.getConnection().models
     this.serviceDefinitions = {
       OrderService,
       AssetsService,

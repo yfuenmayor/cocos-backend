@@ -1,29 +1,29 @@
 appName: cocos-backend
-env: qa
+env: local
 port: 3000
 api:
   currency:
     market:
       ticker: ARS
+      id: 66
   orders:
     schemas:
       types:
         - MARKET
         - LIMIT
       sides:
+        all:
+          - CASH_IN
+          - CASH_OUT
+          - BUY
+          - SELL
         cash:
           - CASH_IN
           - CASH_OUT
 db:
-  type: &dialect postgres
-  auth:
-    host:
-    port:
-    user:
-    password:
-    dataBase:
+  uri: 'postgres://jmtduxkk:fpM1noErekknBYwCDzv3z1pYIlKlWhsC@raja.db.elephantsql.com:5432/jmtduxkk'
   config:
-    dialect: *dialect
+    dialect: postgres
     logging: true
     pool:
       max: 3

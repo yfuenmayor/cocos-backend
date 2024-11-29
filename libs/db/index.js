@@ -1,23 +1,16 @@
 const { Sequelize } = require('sequelize')
 const config = require('config')
-const initModels = require('./models')
 
 class Database {
   static instance
-
 
   constructor(){
     if(Database.instance)
       return Database.instance
 
-    const { type, config: dbConfig, auth } = config.get('db')
-    const { user, password, host, port, dataBase } = auth
-    const uri = `${type}://${user}:${password}@${host}:${port}/${dataBase}`
+    const { config: dbConfig, uri } = config.get('db')
 
     this.sequelize = new Sequelize(uri, {...dbConfig})
-
-    initModels(this.sequelize)
-    this.sequelize.sync({ alter: false, force: false })
 
     Database.instance = this
   }
@@ -38,9 +31,9 @@ class Database {
   closeConnection = () => {
     try {
       this.sequelize.close();
-      console.log('Database connection closed.');
+      console.log('Database connection closed.')
     } catch (error) {
-      console.error('Error closing database connection:', error);
+      console.error('Error closing database connection:', error)
     }
   };
 }

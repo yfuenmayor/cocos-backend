@@ -1,5 +1,5 @@
 appName: cocos-backend
-env: prod
+env: qa
 port: 3000
 api:
   currency:
@@ -15,18 +15,8 @@ api:
           - CASH_IN
           - CASH_OUT
 db:
-  type: &dialect postgres
-  auth:
-    host:
-    port:
-    user:
-    password:
-    dataBase:
+  uri: 'sqlite::memory:'
+  sync:
+    alter: true
+    force: true
   config:
-    dialect: *dialect
-    logging: false
-    pool:
-      max: 3
-      min: 1
-      acquire: 30000
-      idle: 10000

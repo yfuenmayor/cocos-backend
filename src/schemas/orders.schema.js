@@ -8,7 +8,7 @@ const instrumentId = Joi.number().integer().positive()
 const size = Joi.number().integer().positive()
 const price = Joi.number().positive().precision(2)
 const type = Joi.string().valid(...types)
-const side = Joi.string()
+const side = Joi.string().valid(...sides.all)
 
 const setOrderSchema = Joi.object({
   userId: userId.required(),
