@@ -21,7 +21,7 @@ api:
           - CASH_IN
           - CASH_OUT
 db:
-  uri: 'postgres://jmtduxkk:fpM1noErekknBYwCDzv3z1pYIlKlWhsC@raja.db.elephantsql.com:5432/jmtduxkk'
+  uri:
   config:
     dialect: postgres
     logging: true

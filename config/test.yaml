@@ -5,6 +5,7 @@ api:
   currency:
     market:
       ticker: ARS
+      id: 66
   orders:
     schemas:
       types:
