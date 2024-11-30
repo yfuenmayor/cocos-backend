@@ -1,5 +1,6 @@
 
  const Calculations = require('./calculations')
+ const OrderHelpers = require('./order.helpers')
 
 class Helpers {
   constructor() {
@@ -7,6 +8,7 @@ class Helpers {
 
     this.helpersDefinitions = {
       Calculations,
+      OrderHelpers
     }
 
     for (const [key, HelperClass] of Object.entries(this.helpersDefinitions)) {
@@ -14,7 +16,7 @@ class Helpers {
     }
   }
 
-  getHelper(helperName) {
+  get(helperName) {
     return this.helpers[helperName];
   }
 }

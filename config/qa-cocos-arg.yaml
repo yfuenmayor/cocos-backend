@@ -1,0 +1,32 @@
+appName: cocos-backend
+env: local
+port: 3000
+api:
+  currency:
+    market:
+      ticker: ARS
+      id: 66
+  orders:
+    schemas:
+      types:
+        - MARKET
+        - LIMIT
+      sides:
+        all:
+          - CASH_IN
+          - CASH_OUT
+          - BUY
+          - SELL
+        cash:
+          - CASH_IN
+          - CASH_OUT
+db:
+  uri:
+  config:
+    dialect: postgres
+    logging: true
+    pool:
+      max: 3
+      min: 1
+      acquire: 30000
+      idle: 10000

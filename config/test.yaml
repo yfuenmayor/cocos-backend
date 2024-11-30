@@ -1,0 +1,23 @@
+appName: cocos-backend
+env: qa
+port: 3000
+api:
+  currency:
+    market:
+      ticker: ARS
+      id: 66
+  orders:
+    schemas:
+      types:
+        - MARKET
+        - LIMIT
+      sides:
+        cash:
+          - CASH_IN
+          - CASH_OUT
+db:
+  uri: 'sqlite::memory:'
+  sync:
+    alter: true
+    force: true
+  config:

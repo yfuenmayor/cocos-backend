@@ -28,6 +28,10 @@ app.use(cors(options));
 
  */
 
+const dbInstance = new Database()
+dbInstance.testConnection()
+
+
 app.use(cors())
 app.use(express.json({ extended: true}))
 
@@ -39,3 +43,18 @@ app.use(middlewares.boomErrors)
 app.use(middlewares.parseErrors)
 
 app.listen(port, () => console.log(`listening on ${port}`) )
+
+// Manejo de eventos para cerrar la conexión al terminar la aplicación
+
+const gracefulShutdown = () => {
+  console.log('Graceful shutdown initiated...');
+  dbInstance.closeConnection();
+  process.exit(0);
+};
+
+process.on('SIGINT', gracefulShutdown)
+process.on('SIGTERM', gracefulShutdown)
+process.on('exit', () => {
+  dbInstance.closeConnection();
+})
+

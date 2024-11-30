@@ -1,10 +1,11 @@
 const { pathOr } = require('ramda')
-const AssetService = require('../services/assets.service')
+const Controller = require('./core.controller')
 
-class AssetsController {
+class AssetsController extends Controller {
 
   constructor() {
-    this.assets = new AssetService();
+    super()
+    this.assets = this.getService('AssetsService')
   }
 
   getAllMarket = async (req, res, next) => {

@@ -1,17 +1,29 @@
-const { models } = require('../../libs/db/sequelize')
 const {Op} = require("sequelize");
+const {or, isEmpty, isNil} = require("ramda");
+const boom = require("@hapi/boom");
 
 class AssetsService {
 
-  constructor() {
-    this.instruments = models.Instruments
+  constructor(models) {
+    this.InstumentsModel = models.Instruments
+    this.ViMarketModel = models.ViMarket
+    this.MarketModel = models.Market
   }
 
-  async getAllMarket(searchText){
-    const data = await this.instruments.findAll({
+  getInstrumentById = async id => {
+    const instrument = await this.InstumentsModel.findByPk(id)
+
+    if(or(isEmpty(instrument), isNil(instrument)))
+      throw boom.notFound("instrument not found")
+
+    return instrument
+}
+
+  getAllMarket = async searchText =>{
+    const data = await this.InstumentsModel.findAll({
       attributes: ['id', 'ticker', 'name' ],
       include: [{
-        model: models.Market,
+        model: this.MarketModel,
         as: 'market',
         required:true,
         attributes: ['high', 'low', 'open', 'close' ],
@@ -27,11 +39,11 @@ class AssetsService {
     return data
   }
 
-  async getLastMarket(searchText){
-    const data = await this.instruments.findAll({
+  getLastMarket = async searchText => {
+    const data = await this.InstumentsModel.findAll({
       attributes: ['id', 'ticker', 'name' ],
       include: [{
-        model: models.ViMarket,
+        model: this.ViMarketModel,
         as: 'viMarket',
         required:true,
         attributes: ['high', 'low', 'open', 'close' ],

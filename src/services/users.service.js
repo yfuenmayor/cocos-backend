@@ -1,20 +1,19 @@
 const boom = require('@hapi/boom');
-const { models } = require('../../libs/db/sequelize')
 const {isEmpty, isNil, or} = require("ramda");
 
 class UsersService {
 
-  constructor() {
+  constructor(models) {
     this.model = models.Users
   }
 
 
-  async getAll(){
+  getAll = async () => {
     const data = await this.model.findAll()
     return data
   }
 
-  async getById(id){
+  getById= async id =>{
     const data = await this.model.findByPk(id)
     if(or(isEmpty(data), isNil(data)))
       throw boom.notFound("user not found")

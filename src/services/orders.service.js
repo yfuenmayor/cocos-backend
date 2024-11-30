@@ -1,44 +1,47 @@
 const boom = require('@hapi/boom');
-const { models } = require('../../libs/db/sequelize')
 const {isEmpty, isNil, or} = require("ramda");
-const { Op, Sequelize } = require('sequelize');
-const MarketService = require('./market.service')
+const { Op } = require('sequelize');
 
 class OrdersService {
 
-  constructor() {
+  constructor(models) {
     this.OrdersModel = models.Orders
-    this.MarketService = new MarketService()
+    this.models = models
   }
 
 
-  async getAll(){
+   getAll = async () => {
     const data = await this.OrdersModel.findAll()
     return data
   }
 
-  async getById(id){
+  create = async data =>{
+    const result = await this.OrdersModel.create(data)
+    return result
+  }
+
+  getById = async id => {
     const data = await this.OrdersModel.findByPk(id)
     if(or(isEmpty(data), isNil(data)))
       throw boom.notFound("instrument not found")
     return data
   }
 
-  async getByUserId(userId){
+  getByUserId = async userId => {
     const data = await this.OrdersModel.findAll({
       attributes: ['id', 'status','instrumentId', 'side', 'type', 'size', 'price'],
       include: [
         {
-          model: models.Users,
+          model: this.models.Users,
           as: 'user',
           required:true,
           attributes: ['id', 'email'],
         },
         {
-          model: models.Instruments,
+          model: this.models.Instruments,
           as: 'instrument',
           required:true,
-          attributes: ['type','name'],
+          attributes: ['id','type','name'],
         }
       ],
       where: {

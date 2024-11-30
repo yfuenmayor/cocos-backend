@@ -1,22 +1,29 @@
 {
   "name": "cocos-backend",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "lint": "eslint"
+    "dev": "NODE_ENV=qa NODE_APP_INSTANCE=cocos-arg nodemon index.js",
+    "start": "NODE_ENV=prod NODE_APP_INSTANCE=cocos-arg node index.js",
+    "lint": "eslint",
+    "test": "NODE_ENV=test mocha --exit"
   },
   "keywords": [],
   "author": "Ing. Yohan Fuenmayor",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.3.7",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.1",
+    "mocha": "^10.8.2",
     "nodemon": "^3.1.7",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "sinon": "^15.0.1",
+    "sinon-chai": "^3.7.0",
+    "sqlite3": "^5.1.7"
   },
   "dependencies": {
     "@hapi/boom": "^10.0.1",
@@ -24,6 +31,8 @@
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "joi": "^17.13.3",
+    "luxon": "^3.5.0",
+    "nyc": "^15.1.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "ramda": "^0.30.1",
