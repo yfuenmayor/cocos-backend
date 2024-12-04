@@ -25,3 +25,20 @@ cd proyecto
 # Instalar las dependencias
 nvm i
 npm install
+
+# Agregar la URI de la DB en el archivo dentro de config (qa-cocos-arg.yaml) dependiendo del entorno de ejecucion:
+
+db:
+  uri: 'postgres://user:password@server:port/database'
+
+# Para las Pruebas ejecutar:
+
+npm run test
+
+# Para la ejecucion en local:
+
+npm run dev
+
+# Para la ejecucion en prod:
+
+npm run start
